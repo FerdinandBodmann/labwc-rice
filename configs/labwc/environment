@@ -1,0 +1,42 @@
+#
+# Ultimate Labwc Rice - environment
+# Environment variables for labwc session
+#
+# For more information, see: https://labwc.github.io/labwc-config.5.html
+
+# Wayland specific
+export WAYLAND_DISPLAY=wayland-0
+
+# Toolkit backends
+export GDK_BACKEND=wayland,x11
+export QT_QPA_PLATFORM=wayland;xcb
+export SDL_VIDEODRIVER=wayland
+export CLUTTER_BACKEND=wayland
+
+# XWayland
+export XWAYLAND_NO_GLAMOR=1
+
+# Cursor theme
+export XCURSOR_THEME=Bibata-Modern-Classic
+export XCURSOR_SIZE=24
+
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Java applications on Wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Firefox Wayland
+export MOZ_ENABLE_WAYLAND=1
+
+# Chromium/Electron Wayland
+export CHROME_EXECUTABLE=chromium
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
+# Theme settings
+export GTK_THEME=Catppuccin-Mocha-Compact
+export QT_STYLE_OVERRIDE=kvantum
+
+# For laptop displays and power management
+export WLR_DRM_NO_ATOMIC=1

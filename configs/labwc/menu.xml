@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+  Ultimate Labwc Rice - menu.xml
+  Root menu configuration for labwc
+  
+  For more information, see: https://labwc.github.io/labwc-menu.5.html
+-->
+<openbox_menu>
+  <menu id="root-menu" label="Labwc">
+    <item label="Terminal">
+      <action name="Execute">
+        <command>kitty</command>
+      </action>
+    </item>
+    <item label="File Manager">
+      <action name="Execute">
+        <command>thunar</command>
+      </action>
+    </item>
+    <item label="Web Browser">
+      <action name="Execute">
+        <command>firefox</command>
+      </action>
+    </item>
+    <item label="Text Editor">
+      <action name="Execute">
+        <command>code</command>
+      </action>
+    </item>
+    
+    <separator />
+    
+    <menu id="applications" label="Applications" />
+    
+    <separator />
+    
+    <menu id="system" label="System">
+      <item label="Settings">
+        <action name="Execute">
+          <command>lxappearance</command>
+        </action>
+      </item>
+      <item label="Network Settings">
+        <action name="Execute">
+          <command>nm-connection-editor</command>
+        </action>
+      </item>
+      <item label="Bluetooth">
+        <action name="Execute">
+          <command>blueman-manager</command>
+        </action>
+      </item>
+      <item label="Audio Settings">
+        <action name="Execute">
+          <command>pavucontrol</command>
+        </action>
+      </item>
+      <item label="Power Manager">
+        <action name="Execute">
+          <command>xfce4-power-manager-settings</command>
+        </action>
+      </item>
+    </menu>
+    
+    <separator />
+    
+    <menu id="power" label="Power">
+      <item label="Lock Screen">
+        <action name="Execute">
+          <command>swaylock</command>
+        </action>
+      </item>
+      <item label="Suspend">
+        <action name="Execute">
+          <command>systemctl suspend</command>
+        </action>
+      </item>
+      <item label="Hibernate">
+        <action name="Execute">
+          <command>systemctl hibernate</command>
+        </action>
+      </item>
+      <item label="Reboot">
+        <action name="Execute">
+          <command>systemctl reboot</command>
+        </action>
+      </item>
+      <item label="Shutdown">
+        <action name="Execute">
+          <command>systemctl poweroff</command>
+        </action>
+      </item>
+    </menu>
+    
+    <separator />
+    
+    <item label="Exit Labwc">
+      <action name="Exit" />
+    </item>
+  </menu>
+</openbox_menu>

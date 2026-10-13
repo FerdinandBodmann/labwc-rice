@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<!--
+  Ultimate Labwc Rice - rc.xml
+  Main configuration for labwc (Wayland window manager)
+  
+  For more information, see: https://labwc.github.io/labwc-config.5.html
+-->
+<labwc_config>
+  <!-- Core theme settings -->
+  <theme>
+    <name>Catppuccin-Mocha-Compact</name>
+    <cornerRadius>8</cornerRadius>
+    <font place="ActiveWindow">
+      <name>Inter</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="InactiveWindow">
+      <name>Inter</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="MenuHeader">
+      <name>Inter</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="MenuItem">
+      <name>Inter</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>Inter</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <titlebar>
+      <!-- Titlebar button layout: menu, iconify, maximize, close -->
+      <layout>menu:iconify,max,close</layout>
+      <padding>6</padding>
+      <height>28</height>
+    </titlebar>
+  </theme>
+
+  <!-- General window behavior settings -->
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>yes</raiseOnFocus>
+  </focus>
+
+  <!-- Window placement -->
+  <placement>
+    <policy>smart</policy>
+    <center>yes</center>
+  </placement>
+
+  <!-- Desktop/Workspace settings -->
+  <desktops>
+    <number>4</number>
+    <firstDesk>1</firstDesk>
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
+  </desktops>
+
+  <!-- Window margins (gaps) - nice for tiling aesthetics -->
+  <margins>
+    <top>8</top>
+    <bottom>8</bottom>
+    <left>8</left>
+    <right>8</right>
+  </margins>
+
+  <!-- Window snapping/resistance -->
+  <resistance>
+    <screenEdgeStrength>20</screenEdgeStrength>
+    <windowEdgeStrength>20</windowEdgeStrength>
+  </resistance>
+
+  <!-- Keyboard configuration -->
+  <keyboard>
+    <default />
+    <repeatRate>25</repeatRate>
+    <repeatDelay>600</repeatDelay>
+    
+    <!-- Keybindings -->
+    <keybind key="Super_L">
+      <action name="ShowMenu">
+        <menu>root-menu</menu>
+      </action>
+    </keybind>
+    
+    <!-- Launchers -->
+    <keybind key="Super+Space">
+      <action name="Execute" command="fuzzel" />
+    </keybind>
+    <keybind key="Super+d">
+      <action name="Execute" command="rofi -show drun" />
+    </keybind>
+    <keybind key="Super+Return">
+      <action name="Execute" command="kitty" />
+    </keybind>
+    <keybind key="Super+Shift+Return">
+      <action name="Execute" command="alacritty" />
+    </keybind>
+    <keybind key="Super+e">
+      <action name="Execute" command="thunar" />
+    </keybind>
+    
+    <!-- Window management -->
+    <keybind key="Super+q">
+      <action name="Close" />
+    </keybind>
+    <keybind key="Super+Shift+q">
+      <action name="Exit" />
+    </keybind>
+    <keybind key="Super+m">
+      <action name="Iconify" />
+    </keybind>
+    <keybind key="Super+f">
+      <action name="ToggleMaximize" />
+    </keybind>
+    <keybind key="Super+Shift+f">
+      <action name="ToggleFullscreen" />
+    </keybind>
+    
+    <!-- Window focus -->
+    <keybind key="Super+h">
+      <action name="FocusLeft" />
+    </keybind>
+    <keybind key="Super+l">
+      <action name="FocusRight" />
+    </keybind>
+    <keybind key="Super+k">
+      <action name="FocusUp" />
+    </keybind>
+    <keybind key="Super+j">
+      <action name="FocusDown" />
+    </keybind>
+    
+    <!-- Move windows -->
+    <keybind key="Super+Shift+h">
+      <action name="MoveToEdge" direction="left" />
+    </keybind>
+    <keybind key="Super+Shift+l">
+      <action name="MoveToEdge" direction="right" />
+    </keybind>
+    <keybind key="Super+Shift+k">
+      <action name="MoveToEdge" direction="up" />
+    </keybind>
+    <keybind key="Super+Shift+j">
+      <action name="MoveToEdge" direction="down" />
+    </keybind>
+    
+    <!-- Resize windows -->
+    <keybind key="Super+Ctrl+h">
+      <action name="ResizeToEdge" direction="left" />
+    </keybind>
+    <keybind key="Super+Ctrl+l">
+      <action name="ResizeToEdge" direction="right" />
+    </keybind>
+    <keybind key="Super+Ctrl+k">
+      <action name="ResizeToEdge" direction="up" />
+    </keybind>
+    <keybind key="Super+Ctrl+j">
+      <action name="ResizeToEdge" direction="down" />
+    </keybind>
+    
+    <!-- Workspace switching -->
+    <keybind key="Super+1">
+      <action name="GoToDesktop" to="1" />
+    </keybind>
+    <keybind key="Super+2">
+      <action name="GoToDesktop" to="2" />
+    </keybind>
+    <keybind key="Super+3">
+      <action name="GoToDesktop" to="3" />
+    </keybind>
+    <keybind key="Super+4">
+      <action name="GoToDesktop" to="4" />
+    </keybind>
+    
+    <!-- Send window to workspace -->
+    <keybind key="Super+Shift+1">
+      <action name="SendToDesktop" to="1" />
+    </keybind>
+    <keybind key="Super+Shift+2">
+      <action name="SendToDesktop" to="2" />
+    </keybind>
+    <keybind key="Super+Shift+3">
+      <action name="SendToDesktop" to="3" />
+    </keybind>
+    <keybind key="Super+Shift+4">
+      <action name="SendToDesktop" to="4" />
+    </keybind>
+    
+    <!-- Laptop brightness controls (use brightnessctl if available) -->
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute" command="brightnessctl set +5%" />
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute" command="brightnessctl set 5%-" />
+    </keybind>
+    
+    <!-- Volume controls -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ +5%" />
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ -5%" />
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="pactl set-sink-mute @DEFAULT_SINK@ toggle" />
+    </keybind>
+    <keybind key="XF86AudioMicMute">
+      <action name="Execute" command="pactl set-source-mute @DEFAULT_SOURCE@ toggle" />
+    </keybind>
+    
+    <!-- Media controls -->
+    <keybind key="XF86AudioPlay">
+      <action name="Execute" command="playerctl play-pause" />
+    </keybind>
+    <keybind key="XF86AudioNext">
+      <action name="Execute" command="playerctl next" />
+    </keybind>
+    <keybind key="XF86AudioPrev">
+      <action name="Execute" command="playerctl previous" />
+    </keybind>
+    
+    <!-- Screenshots -->
+    <keybind key="Print">
+      <action name="Execute" command="grim" />
+    </keybind>
+    <keybind key="Shift+Print">
+      <action name="Execute" command="grim -g \"$(slurp)\"" />
+    </keybind>
+    <keybind key="Super+Print">
+      <action name="Execute" command="grim -g \"$(slurp)\" - | wl-copy" />
+    </keybind>
+    
+    <!-- Lock screen -->
+    <keybind key="Super+Shift+l">
+      <action name="Execute" command="swaylock" />
+    </keybind>
+  </keyboard>
+
+  <!-- Mouse configuration -->
+  <mouse>
+    <default />
+    <doubleClickTime>400</doubleClickTime>
+    <dragThreshold>8</dragThreshold>
+    <context name="TitleBar">
+      <mousebind button="Left" action="Press">
+        <action name="Focus" />
+        <action name="Raise" />
+      </mousebind>
+      <mousebind button="Left" action="Drag">
+        <action name="Move" />
+      </mousebind>
+      <mousebind button="Right" action="Press">
+        <action name="Focus" />
+        <action name="Raise" />
+        <action name="ShowMenu">
+          <menu>client-menu</menu>
+        </action>
+      </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="Focus" />
+        <action name="Raise" />
+        <action name="ShowMenu">
+          <menu>client-menu</menu>
+        </action>
+      </mousebind>
+      <mousebind button="Left" action="DoubleClick">
+        <action name="ToggleMaximize" />
+      </mousebind>
+    </context>
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu">
+          <menu>root-menu</menu>
+        </action>
+      </mousebind>
+      <mousebind button="Left" action="Press">
+        <action name="ShowMenu">
+          <menu>root-menu</menu>
+        </action>
+      </mousebind>
+      <mousebind button="Middle" action="Press">
+        <action name="ShowMenu">
+          <menu>root-menu</menu>
+        </action>
+      </mousebind>
+    </context>
+  </mouse>
+
+  <!-- Touchpad configuration (laptop-friendly) -->
+  <libinput>
+    <device category="touchpad">
+      <naturalScroll>yes</naturalScroll>
+      <tap>yes</tap>
+      <tapButtonMap>lrm</tapButtonMap>
+      <tapAndDrag>yes</tapAndDrag>
+      <dragLock>yes</dragLock>
+      <middleEmulation>yes</middleEmulation>
+      <accelProfile>adaptive</accelProfile>
+      <pointerSpeed>0.7</pointerSpeed>
+      <disableWhileTyping>yes</disableWhileTyping>
+    </device>
+  </libinput>
+
+  <!-- Window rules -->
+  <windowRules>
+    <!-- Floating windows -->
+    <windowRule identifier="rofi" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule identifier="fuzzel" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule identifier="pavucontrol" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule identifier="nm-connection-editor" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule identifier="blueman-manager" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule identifier="swaylock" matchOnce="yes">
+      <action name="Float" />
+      <action name="Focus" />
+    </windowRule>
+    
+    <!-- Dialog windows -->
+    <windowRule title="*Dialog*" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule title="*Confirm*" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+    <windowRule title="*Popup*" matchOnce="yes">
+      <action name="Float" />
+    </windowRule>
+  </windowRules>
+
+  <!-- Output configuration (laptop-friendly - can be adjusted per monitor) -->
+  <outputs>
+    <!-- Default fallback - will be auto-detected -->
+    <default>
+      <mode>preferred</mode>
+      <position>auto</position>
+      <scale>1.0</scale>
+      <transform>normal</transform>
+    </default>
+  </outputs>
+</labwc_config>
