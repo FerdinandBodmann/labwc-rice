@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <theme>
+    <name>Catppuccin-Mocha-Compact</name>
+    <titlebar>
+      <layout>menu:iconify,max,close</layout>
+    </titlebar>
+  </theme>
+  <keyboard>
+    <default />
+  </keyboard>
+  <mouse>
+    <default />
+  </mouse>
+</labwc_config>
