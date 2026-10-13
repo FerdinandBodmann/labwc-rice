@@ -1,0 +1,11 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "modules-left": ["wlr/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "battery", "tray"],
+    "clock": {
+        "format": "{:%H:%M %d/%m/%Y}"
+    }
+}
