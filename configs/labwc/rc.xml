@@ -128,6 +128,11 @@
       <action name="Execute" command="firefox" />
     </keybind>
 
+    <!-- Wallpaper: opens a thumbnail grid where you click the one you want -->
+    <keybind key="W-S-w">
+      <action name="Execute" command="waypaper" />
+    </keybind>
+
     <!-- Window management -->
     <keybind key="W-q">
       <action name="Close" />

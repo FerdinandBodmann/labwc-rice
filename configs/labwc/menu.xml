@@ -38,10 +38,15 @@
       </item>
       <separator />
       <item label="Screenshot (region)">
-        <action name="Execute" command="screenshot" />
+        <action name="Execute">
+          <command>sh -c 'exec "$HOME/.local/bin/screenshot" 2>/dev/null || exec "$HOME/labwc-rice/scripts/screenshot.sh"'</command>
+        </action>
       </item>
-      <item label="Set Wallpaper">
-        <action name="Execute" command="wallpaper-switcher" />
+      <item label="Set Wallpaper...">
+        <action name="Execute" command="waypaper" />
+      </item>
+      <item label="Random Wallpaper">
+        <action name="Execute" command="waypaper --random" />
       </item>
     </menu>
 

@@ -25,22 +25,21 @@ command -v mako >/dev/null 2>&1 && mako &
 command -v dunst >/dev/null 2>&1 && dunst &
 
 # --- Wallpaper ----------------------------------------------------------------
-# Prefers the rice wallpaper directory, falls back to a Catppuccin Mocha colour.
-if command -v swaybg >/dev/null 2>&1; then
-    wallpaper=""
-    for dir in "$HOME/Pictures/wallpapers" "$HOME/Pictures/Wallpapers" "$HOME/labwc-rice/wallpapers"; do
-        [ -d "$dir" ] || continue
-        wallpaper=$(find "$dir" -maxdepth 1 -type f \
-            \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
-            | sort | head -n 1)
-        [ -n "$wallpaper" ] && break
-    done
-
-    if [ -n "$wallpaper" ]; then
-        swaybg -i "$wallpaper" -m fill &
-    else
-        swaybg -c '#1e1e2e' &
+# Re-applies the wallpaper last chosen with `wallpaper-switcher`
+# (Super+Shift+w, or "Set Wallpaper" in the desktop menu). Falls back to a
+# random one, then to a solid Catppuccin Mocha colour.
+wallpaper_picker=""
+for picker in "$HOME/.local/bin/wallpaper-switcher" "$HOME/labwc-rice/scripts/wallpaper-switcher.sh"; do
+    if [ -x "$picker" ]; then
+        wallpaper_picker="$picker"
+        break
     fi
+done
+
+if [ -n "$wallpaper_picker" ]; then
+    "$wallpaper_picker" --restore &
+elif command -v swaybg >/dev/null 2>&1; then
+    swaybg -c '#1e1e2e' &
 fi
 
 # --- Clipboard history --------------------------------------------------------

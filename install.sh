@@ -32,7 +32,7 @@ link_config() {
     local src="${SCRIPT_DIR}/configs/${1}"
     local dst="${HOME}/.config/${1}"
     if [ -e "${src}" ]; then
-        ln -sf "${src}" "${dst}"
+        ln -sfn "${src}" "${dst}"
         echo "Linked ${dst} -> ${src}"
     else
         echo "Warning: ${src} not found, skipping"
@@ -52,11 +52,19 @@ link_config "mako"
 for script in "${SCRIPT_DIR}/scripts"/*.sh; do
     if [ -f "${script}" ]; then
         script_name=$(basename "${script}" .sh)
-        ln -sf "${script}" "${HOME}/.local/bin/${script_name}"
+        ln -sfn "${script}" "${HOME}/.local/bin/${script_name}"
         chmod +x "${script}" "${HOME}/.local/bin/${script_name}"
         echo "Installed script: ${script_name}"
     fi
 done
+
+# Seed the waypaper config if it is missing. It cannot be symlinked because
+# waypaper rewrites the file whenever it saves a setting.
+if [ -f "${SCRIPT_DIR}/configs/waypaper/config.ini" ] && [ ! -f "${HOME}/.config/waypaper/config.ini" ]; then
+    mkdir -p "${HOME}/.config/waypaper"
+    cp "${SCRIPT_DIR}/configs/waypaper/config.ini" "${HOME}/.config/waypaper/config.ini"
+    echo "Seeded ~/.config/waypaper/config.ini"
+fi
 
 # Copy themes if they exist
 if [ -d "${SCRIPT_DIR}/themes" ] && [ -n "$(find "${SCRIPT_DIR}/themes" -mindepth 1 ! -name '.gitkeep' -print -quit)" ]; then
