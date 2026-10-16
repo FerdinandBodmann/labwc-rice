@@ -1,106 +1,78 @@
 #!/bin/sh
 #
 # Ultimate Labwc Rice - autostart
-# Applications and services to start on labwc launch
+# Executed as a shell script by labwc after the session is set up.
 #
-# For more information, see: https://labwc.github.io/labwc-config.5.html
+# Every block is guarded with `command -v` so a missing program is harmless.
+# Reference: https://labwc.github.io/labwc-config.5.html
 
-# Set up environment
-export XDG_CURRENT_DESKTOP=labwc
-export XDG_SESSION_DESKTOP=labwc
-export XDG_SESSION_TYPE=wayland
-
-# PolicyKit agent (for authentication prompts)
-if command -v lxpolkit >/dev/null 2>&1; then
-  lxpolkit &
-elif command -v polkit-gnome-authentication-agent-1 >/dev/null 2>&1; then
-  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# --- Polkit authentication agent (for GUI privilege prompts) -----------------
+if command -v polkit-gnome-authentication-agent-1 >/dev/null 2>&1; then
+    polkit-gnome-authentication-agent-1 &
+elif [ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]; then
+    /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+elif command -v lxpolkit >/dev/null 2>&1; then
+    lxpolkit &
 elif command -v xfce-polkit >/dev/null 2>&1; then
-  /usr/lib/xfce-polkit/xfce-polkit &
+    xfce-polkit &
 fi
 
-# Display manager for screen settings (optional)
-if command -v wlr-randr >/dev/null 2>&1 && [ -f "$HOME/.config/labwc/outputs" ]; then
-  # outputs file can be used to configure displays
-  :
-fi
+# --- Panel --------------------------------------------------------------------
+command -v waybar >/dev/null 2>&1 && waybar &
 
-# Waybar panel
-if command -v waybar >/dev/null 2>&1; then
-  waybar >/dev/null 2>&1 &
-fi
+# --- Notifications ------------------------------------------------------------
+command -v mako >/dev/null 2>&1 && mako &
+command -v dunst >/dev/null 2>&1 && dunst &
 
-# Wallpaper manager - try multiple options
+# --- Wallpaper ----------------------------------------------------------------
+# Prefers the rice wallpaper directory, falls back to a Catppuccin Mocha colour.
 if command -v swaybg >/dev/null 2>&1; then
-  # Set default wallpaper if it exists
-  if [ -f "$HOME/Pictures/wallpapers/default.jpg" ]; then
-    swaybg -i "$HOME/Pictures/wallpapers/default.jpg" -m fill &
-  elif [ -f "$HOME/.config/wallpapers/default.jpg" ]; then
-    swaybg -i "$HOME/.config/wallpapers/default.jpg" -m fill &
-  fi
-elif command -v feh >/dev/null 2>&1; then
-  if [ -f "$HOME/Pictures/wallpapers/default.jpg" ]; then
-    feh --bg-fill "$HOME/Pictures/wallpapers/default.jpg" &
-  elif [ -f "$HOME/.config/wallpapers/default.jpg" ]; then
-    feh --bg-fill "$HOME/.config/wallpapers/default.jpg" &
-  fi
-elif command -v wpaperd >/dev/null 2>&1; then
-  wpaperd >/dev/null 2>&1 &
-fi
+    wallpaper=""
+    for dir in "$HOME/Pictures/wallpapers" "$HOME/Pictures/Wallpapers" "$HOME/labwc-rice/wallpapers"; do
+        [ -d "$dir" ] || continue
+        wallpaper=$(find "$dir" -maxdepth 1 -type f \
+            \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
+            | sort | head -n 1)
+        [ -n "$wallpaper" ] && break
+    done
 
-# Notification daemon
-if command -v dunst >/dev/null 2>&1; then
-  dunst >/dev/null 2>&1 &
-elif command -v mako >/dev/null 2>&1; then
-  mako >/dev/null 2>&1 &
-fi
-
-# Clipboard manager
-if command -v wl-paste >/dev/null 2>&1 && command -v wl-copy >/dev/null 2>&1; then
-  if command -v cliphist >/dev/null 2>&1; then
-    wl-paste --watch cliphist store >/dev/null 2>&1 &
-  fi
-fi
-
-# Network applet
-if command -v nm-applet >/dev/null 2>&1; then
-  nm-applet >/dev/null 2>&1 &
-fi
-
-# Bluetooth applet
-if command -v blueman-applet >/dev/null 2>&1; then
-  blueman-applet >/dev/null 2>&1 &
-fi
-
-# Power manager
-if command -v xfce4-power-manager >/dev/null 2>&1; then
-  xfce4-power-manager >/dev/null 2>&1 &
-fi
-
-# Audio applet (optional)
-if command -v pasystray >/dev/null 2>&1; then
-  pasystray >/dev/null 2>&1 &
-fi
-
-# Idle manager / screen locker setup (for laptops)
-if command -v swayidle >/dev/null 2>&1; then
-  swayidle -w \
-    timeout 300 'swaylock -f' \
-    timeout 600 'wlopm --off \*' \
-    resume 'wlopm --on \*' \
-    before-sleep 'swaylock -f' >/dev/null 2>&1 &
-fi
-
-# Autostart scripts directory
-if [ -d "$HOME/.config/labwc/autostart.d" ]; then
-  for script in "$HOME/.config/labwc/autostart.d"/*.sh; do
-    if [ -x "$script" ]; then
-      "$script" >/dev/null 2>&1 &
+    if [ -n "$wallpaper" ]; then
+        swaybg -i "$wallpaper" -m fill &
+    else
+        swaybg -c '#1e1e2e' &
     fi
-  done
 fi
 
-# GAMMA adjustment for better color (optional, laptop-friendly)
-if command -v wlsunset >/dev/null 2>&1; then
-  wlsunset -S 06:00 -s 18:00 >/dev/null 2>&1 &
+# --- Clipboard history --------------------------------------------------------
+# Browse the history with: cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+if command -v wl-paste >/dev/null 2>&1 && command -v cliphist >/dev/null 2>&1; then
+    wl-paste --watch cliphist store &
+fi
+
+# --- Status applets -----------------------------------------------------------
+command -v nm-applet >/dev/null 2>&1 && nm-applet &
+command -v blueman-applet >/dev/null 2>&1 && blueman-applet &
+
+# --- Output profiles (per-monitor setup, optional) ----------------------------
+if command -v kanshi >/dev/null 2>&1 && [ -f "$HOME/.config/kanshi/config" ]; then
+    kanshi &
+fi
+
+# --- Idle management ----------------------------------------------------------
+if command -v swayidle >/dev/null 2>&1 && command -v swaylock >/dev/null 2>&1; then
+    swayidle -w \
+        timeout 600 'swaylock -f' \
+        timeout 900 'wlopm --off "*"' \
+        resume 'wlopm --on "*"' \
+        before-sleep 'swaylock -f' &
+fi
+
+# --- Night light (optional) ---------------------------------------------------
+command -v wlsunset >/dev/null 2>&1 && wlsunset -S 07:00 -s 21:00 &
+
+# --- Extra user hooks ---------------------------------------------------------
+if [ -d "$HOME/.config/labwc/autostart.d" ]; then
+    for script in "$HOME/.config/labwc/autostart.d"/*.sh; do
+        [ -x "$script" ] && "$script" &
+    done
 fi

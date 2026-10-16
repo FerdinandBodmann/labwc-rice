@@ -1,0 +1,151 @@
+/* Ultimate Labwc Rice - waybar style
+   Catppuccin Mocha palette */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #cdd6f4;
+}
+
+/* Bar background drawn on the individual modules so they look like pills */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: rgba(24, 24, 37, 0.9);
+    border-radius: 12px;
+    margin: 4px 6px;
+    padding: 0 6px;
+}
+
+#custom-launcher,
+#workspaces,
+#taskbar,
+#clock,
+#idle_inhibitor,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#tray {
+    padding: 2px 10px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+#custom-launcher {
+    color: #cba6f7;
+    font-size: 15px;
+    padding: 2px 12px 2px 8px;
+}
+
+#custom-launcher:hover {
+    background: #313244;
+}
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 6px;
+    margin: 0 1px;
+    color: #6c7086;
+    background: transparent;
+    border-radius: 8px;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: #1e1e2e;
+    background: #cba6f7;
+}
+
+#workspaces button:hover {
+    color: #cdd6f4;
+    background: #313244;
+}
+
+#workspaces button.urgent {
+    color: #1e1e2e;
+    background: #f38ba8;
+}
+
+/* Taskbar */
+#taskbar button {
+    padding: 0 4px;
+    margin: 0 1px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+#taskbar button.active {
+    background: #313244;
+}
+
+#taskbar button:hover {
+    background: #45475a;
+}
+
+#clock {
+    color: #cdd6f4;
+    font-weight: bold;
+}
+
+#idle_inhibitor {
+    color: #89b4fa;
+}
+
+#idle_inhibitor.activated {
+    color: #a6e3a1;
+}
+
+#pulseaudio {
+    color: #94e2d5;
+}
+
+#pulseaudio.muted {
+    color: #6c7086;
+}
+
+#network {
+    color: #89b4fa;
+}
+
+#network.disconnected {
+    color: #f38ba8;
+}
+
+#cpu {
+    color: #fab387;
+}
+
+#memory {
+    color: #f9e2af;
+}
+
+#tray {
+    padding: 2px 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+tooltip {
+    background: #181825;
+    border: 1px solid #cba6f7;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #cdd6f4;
+}

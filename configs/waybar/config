@@ -1,0 +1,85 @@
+{
+    "layer": "top",
+    "position": "top",
+    "spacing": 6,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": [
+        "custom/launcher",
+        "ext/workspaces",
+        "wlr/taskbar"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "idle_inhibitor",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "tray"
+    ],
+    "custom/launcher": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "fuzzel"
+    },
+    "ext/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "sort-by-id": true
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 16,
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "on-click-right": "minimize"
+    },
+    "clock": {
+        "format": "{:%a %d %b  %H:%M}",
+        "tooltip-format": "{:%A, %d %B %Y}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " mute",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": " offline",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "on-click": "nm-connection-editor"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 5
+    },
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 10
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    }
+}

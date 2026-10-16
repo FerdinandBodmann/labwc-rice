@@ -18,7 +18,7 @@ mkdir -p "${HOME}/.config"
 mkdir -p "${HOME}/.local/bin"
 
 # Backup existing configs if they exist
-configs_to_backup=("labwc" "waybar" "rofi" "fuzzel" "swaylock" "wlogout")
+configs_to_backup=("labwc" "waybar" "rofi" "fuzzel" "swaylock" "wlogout" "mako")
 for cfg in "${configs_to_backup[@]}"; do
     if [ -e "${HOME}/.config/${cfg}" ] && [ ! -L "${HOME}/.config/${cfg}" ]; then
         mkdir -p "${BACKUP_DIR}"
@@ -46,6 +46,7 @@ link_config "rofi"
 link_config "fuzzel"
 link_config "swaylock"
 link_config "wlogout"
+link_config "mako"
 
 # Install scripts to ~/.local/bin
 for script in "${SCRIPT_DIR}/scripts"/*.sh; do
@@ -58,23 +59,23 @@ for script in "${SCRIPT_DIR}/scripts"/*.sh; do
 done
 
 # Copy themes if they exist
-if [ -d "${SCRIPT_DIR}/themes" ] && [ "$(ls -A "${SCRIPT_DIR}/themes")" ]; then
+if [ -d "${SCRIPT_DIR}/themes" ] && [ -n "$(find "${SCRIPT_DIR}/themes" -mindepth 1 ! -name '.gitkeep' -print -quit)" ]; then
     mkdir -p "${HOME}/.local/share/themes"
-    cp -r "${SCRIPT_DIR}/themes"/* "${HOME}/.local/share/themes/" 2>/dev/null || true
+    find "${SCRIPT_DIR}/themes" -mindepth 1 ! -name '.gitkeep' -exec cp -r {} "${HOME}/.local/share/themes/" \; 2>/dev/null || true
     echo "Installed themes to ~/.local/share/themes"
 fi
 
 # Copy wallpapers if they exist
-if [ -d "${SCRIPT_DIR}/wallpapers" ] && [ "$(ls -A "${SCRIPT_DIR}/wallpapers")" ]; then
+if [ -d "${SCRIPT_DIR}/wallpapers" ] && [ -n "$(find "${SCRIPT_DIR}/wallpapers" -mindepth 1 ! -name '.gitkeep' -print -quit)" ]; then
     mkdir -p "${HOME}/Pictures/wallpapers"
-    cp -r "${SCRIPT_DIR}/wallpapers"/* "${HOME}/Pictures/wallpapers/" 2>/dev/null || true
+    find "${SCRIPT_DIR}/wallpapers" -mindepth 1 ! -name '.gitkeep' -exec cp -r {} "${HOME}/Pictures/wallpapers/" \; 2>/dev/null || true
     echo "Installed wallpapers to ~/Pictures/wallpapers"
 fi
 
 # Copy fonts if they exist
-if [ -d "${SCRIPT_DIR}/fonts" ] && [ "$(ls -A "${SCRIPT_DIR}/fonts")" ]; then
+if [ -d "${SCRIPT_DIR}/fonts" ] && [ -n "$(find "${SCRIPT_DIR}/fonts" -mindepth 1 ! -name '.gitkeep' -print -quit)" ]; then
     mkdir -p "${HOME}/.local/share/fonts"
-    cp -r "${SCRIPT_DIR}/fonts"/* "${HOME}/.local/share/fonts/" 2>/dev/null || true
+    find "${SCRIPT_DIR}/fonts" -mindepth 1 ! -name '.gitkeep' -exec cp -r {} "${HOME}/.local/share/fonts/" \; 2>/dev/null || true
     fc-cache -f -v >/dev/null 2>&1 || true
     echo "Installed fonts to ~/.local/share/fonts"
 fi

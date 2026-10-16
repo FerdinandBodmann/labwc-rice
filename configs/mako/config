@@ -1,0 +1,29 @@
+# Ultimate Labwc Rice - mako notification daemon
+# Reference: https://github.com/emersion/mako
+
+font=JetBrainsMono Nerd Font 10
+background-color=#181825
+text-color=#cdd6f4
+border-color=#cba6f7
+border-size=2
+border-radius=8
+padding=10
+margin=8
+width=340
+height=140
+max-visible=3
+
+default-timeout=5000
+ignore-timeout=0
+
+anchor=top-right
+layer=overlay
+
+# Urgency levels
+[urgency=low]
+border-color=#6c7086
+default-timeout=3000
+
+[urgency=critical]
+border-color=#f38ba8
+default-timeout=0

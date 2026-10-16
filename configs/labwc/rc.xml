@@ -2,230 +2,255 @@
 <!--
   Ultimate Labwc Rice - rc.xml
   Main configuration for labwc (Wayland window manager)
-  
-  For more information, see: https://labwc.github.io/labwc-config.5.html
+
+  Reference: https://labwc.github.io/labwc-config.5.html
+
+  NOTE ON BINDINGS
+  labwc identifies the Super/Windows key as "W" (alias Mod4) and Alt as "A".
+  Openbox-style names such as "Super+Return" are NOT valid here - use "W-Return".
+  Valid modifier letters: S=Shift, C=Ctrl, A=Alt, W=Super, H=Hyper, M=Meta.
+
+  Commands that use shell syntax (pipes, $(...), redirection) MUST be wrapped
+  in `sh -c '...'`, because labwc splits the command itself and calls execvp()
+  without a shell.
 -->
 <labwc_config>
-  <!-- Core theme settings -->
-  <theme>
-    <name>Catppuccin-Mocha-Compact</name>
-    <cornerRadius>8</cornerRadius>
-    <font place="ActiveWindow">
-      <name>Inter</name>
-      <size>10</size>
-      <slant>normal</slant>
-      <weight>bold</weight>
-    </font>
-    <font place="InactiveWindow">
-      <name>Inter</name>
-      <size>10</size>
-      <slant>normal</slant>
-      <weight>normal</weight>
-    </font>
-    <font place="MenuHeader">
-      <name>Inter</name>
-      <size>10</size>
-      <slant>normal</slant>
-      <weight>bold</weight>
-    </font>
-    <font place="MenuItem">
-      <name>Inter</name>
-      <size>10</size>
-      <slant>normal</slant>
-      <weight>normal</weight>
-    </font>
-    <font place="OnScreenDisplay">
-      <name>Inter</name>
-      <size>10</size>
-      <slant>normal</slant>
-      <weight>normal</weight>
-    </font>
-    <titlebar>
-      <!-- Titlebar button layout: menu, iconify, maximize, close -->
-      <layout>menu:iconify,max,close</layout>
-      <padding>6</padding>
-      <height>28</height>
-    </titlebar>
-  </theme>
 
-  <!-- General window behavior settings -->
+  <!-- Core compositor settings -->
+  <core>
+    <decoration>server</decoration>
+    <!-- Gap (px) between snapped windows and output edges -->
+    <gap>8</gap>
+    <!-- Adaptive sync (VRR): no | yes | fullscreen -->
+    <adaptiveSync>fullscreen</adaptiveSync>
+  </core>
+
+  <!-- Window focus -->
   <focus>
     <followMouse>no</followMouse>
     <raiseOnFocus>yes</raiseOnFocus>
   </focus>
 
-  <!-- Window placement -->
+  <!-- Placement of new windows: center | automatic | cursor | cascade -->
   <placement>
-    <policy>smart</policy>
-    <center>yes</center>
+    <policy>automatic</policy>
   </placement>
 
-  <!-- Desktop/Workspace settings -->
-  <desktops>
-    <number>4</number>
-    <firstDesk>1</firstDesk>
-    <names>
-      <name>1</name>
-      <name>2</name>
-      <name>3</name>
-      <name>4</name>
-    </names>
-  </desktops>
+  <!-- Resize behaviour -->
+  <resize>
+    <drawContents>yes</drawContents>
+    <!-- Never | Always | Nonpixel -->
+    <popupShow>Always</popupShow>
+  </resize>
 
-  <!-- Window margins (gaps) - nice for tiling aesthetics -->
-  <margins>
-    <top>8</top>
-    <bottom>8</bottom>
-    <left>8</left>
-    <right>8</right>
-  </margins>
-
-  <!-- Window snapping/resistance -->
+  <!-- Resist / snap interactive moves across screen and window edges -->
   <resistance>
     <screenEdgeStrength>20</screenEdgeStrength>
     <windowEdgeStrength>20</windowEdgeStrength>
   </resistance>
 
-  <!-- Keyboard configuration -->
+  <!-- Snapping: drag to an edge or use the SnapToEdge bindings below -->
+  <snapping>
+    <range>
+      <inner>10</inner>
+      <outer>10</outer>
+    </range>
+    <cornerRange>50</cornerRange>
+    <topMaximize>yes</topMaximize>
+    <notifyClient>always</notifyClient>
+  </snapping>
+
+  <!-- Theme (see labwc-theme(5)) -->
+  <theme>
+    <!--
+      No Openbox theme is installed on this system by default. To use one,
+      install a theme (e.g. an AUR labwc/openbox theme) and uncomment:
+      <name>Catppuccin-Mocha-Compact</name>
+    -->
+    <cornerRadius>8</cornerRadius>
+    <font place="ActiveWindow">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="InactiveWindow">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="MenuHeader">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="MenuItem">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <titlebar>
+      <layout>menu:iconify,max,close</layout>
+      <showTitle>yes</showTitle>
+    </titlebar>
+  </theme>
+
+  <!-- Key bindings -->
   <keyboard>
-    <default />
     <repeatRate>25</repeatRate>
     <repeatDelay>600</repeatDelay>
-    
-    <!-- Keybindings -->
-    <keybind key="Super_L">
-      <action name="ShowMenu">
-        <menu>root-menu</menu>
-      </action>
-    </keybind>
-    
-    <!-- Launchers -->
-    <keybind key="Super+Space">
+
+    <!-- Menus -->
+    <keybind key="W-Space">
       <action name="Execute" command="fuzzel" />
     </keybind>
-    <keybind key="Super+d">
-      <action name="Execute" command="rofi -show drun" />
-    </keybind>
-    <keybind key="Super+Return">
+
+    <!-- Launchers -->
+    <keybind key="W-Return">
       <action name="Execute" command="kitty" />
     </keybind>
-    <keybind key="Super+Shift+Return">
+    <keybind key="W-S-Return">
       <action name="Execute" command="alacritty" />
     </keybind>
-    <keybind key="Super+e">
+    <keybind key="W-e">
       <action name="Execute" command="thunar" />
     </keybind>
-    
+    <keybind key="W-w">
+      <action name="Execute" command="firefox" />
+    </keybind>
+
     <!-- Window management -->
-    <keybind key="Super+q">
+    <keybind key="W-q">
       <action name="Close" />
     </keybind>
-    <keybind key="Super+Shift+q">
-      <action name="Exit" />
-    </keybind>
-    <keybind key="Super+m">
+    <keybind key="W-m">
       <action name="Iconify" />
     </keybind>
-    <keybind key="Super+f">
+    <keybind key="W-f">
       <action name="ToggleMaximize" />
     </keybind>
-    <keybind key="Super+Shift+f">
+    <keybind key="W-S-f">
       <action name="ToggleFullscreen" />
     </keybind>
-    
-    <!-- Window focus -->
-    <keybind key="Super+h">
-      <action name="FocusLeft" />
+    <keybind key="W-v">
+      <action name="ToggleDecorations" />
     </keybind>
-    <keybind key="Super+l">
-      <action name="FocusRight" />
+    <keybind key="W-d">
+      <action name="ToggleShowDesktop" />
     </keybind>
-    <keybind key="Super+k">
-      <action name="FocusUp" />
+    <keybind key="W-Tab">
+      <action name="NextWindow" />
     </keybind>
-    <keybind key="Super+j">
-      <action name="FocusDown" />
+    <keybind key="W-S-Tab">
+      <action name="PreviousWindow" />
     </keybind>
-    
-    <!-- Move windows -->
-    <keybind key="Super+Shift+h">
+
+    <!-- Tile to half of the output -->
+    <keybind key="W-Left">
+      <action name="SnapToEdge" direction="left" />
+    </keybind>
+    <keybind key="W-Right">
+      <action name="SnapToEdge" direction="right" />
+    </keybind>
+    <keybind key="W-Up">
+      <action name="SnapToEdge" direction="up" />
+    </keybind>
+    <keybind key="W-Down">
+      <action name="SnapToEdge" direction="down" />
+    </keybind>
+
+    <!-- Tile to a quarter of the output -->
+    <keybind key="W-C-Up">
+      <action name="SnapToEdge" direction="up-left" />
+    </keybind>
+    <keybind key="W-C-Right">
+      <action name="SnapToEdge" direction="up-right" />
+    </keybind>
+    <keybind key="W-C-Down">
+      <action name="SnapToEdge" direction="down-right" />
+    </keybind>
+    <keybind key="W-C-Left">
+      <action name="SnapToEdge" direction="down-left" />
+    </keybind>
+
+    <!-- Move window until it hits the next edge -->
+    <keybind key="W-S-Left">
       <action name="MoveToEdge" direction="left" />
     </keybind>
-    <keybind key="Super+Shift+l">
+    <keybind key="W-S-Right">
       <action name="MoveToEdge" direction="right" />
     </keybind>
-    <keybind key="Super+Shift+k">
+    <keybind key="W-S-Up">
       <action name="MoveToEdge" direction="up" />
     </keybind>
-    <keybind key="Super+Shift+j">
+    <keybind key="W-S-Down">
       <action name="MoveToEdge" direction="down" />
     </keybind>
-    
-    <!-- Resize windows -->
-    <keybind key="Super+Ctrl+h">
-      <action name="ResizeToEdge" direction="left" />
+
+    <!-- Resize by 10% -->
+    <keybind key="W-C-S-Left">
+      <action name="ResizeRelative" left="10%" right="-10%" />
     </keybind>
-    <keybind key="Super+Ctrl+l">
-      <action name="ResizeToEdge" direction="right" />
+    <keybind key="W-C-S-Right">
+      <action name="ResizeRelative" left="-10%" right="10%" />
     </keybind>
-    <keybind key="Super+Ctrl+k">
-      <action name="ResizeToEdge" direction="up" />
+    <keybind key="W-C-S-Up">
+      <action name="ResizeRelative" top="10%" bottom="-10%" />
     </keybind>
-    <keybind key="Super+Ctrl+j">
-      <action name="ResizeToEdge" direction="down" />
+    <keybind key="W-C-S-Down">
+      <action name="ResizeRelative" top="-10%" bottom="10%" />
     </keybind>
-    
-    <!-- Workspace switching -->
-    <keybind key="Super+1">
+
+    <!-- Workspaces -->
+    <keybind key="W-1">
       <action name="GoToDesktop" to="1" />
     </keybind>
-    <keybind key="Super+2">
+    <keybind key="W-2">
       <action name="GoToDesktop" to="2" />
     </keybind>
-    <keybind key="Super+3">
+    <keybind key="W-3">
       <action name="GoToDesktop" to="3" />
     </keybind>
-    <keybind key="Super+4">
+    <keybind key="W-4">
       <action name="GoToDesktop" to="4" />
     </keybind>
-    
-    <!-- Send window to workspace -->
-    <keybind key="Super+Shift+1">
-      <action name="SendToDesktop" to="1" />
+    <keybind key="W-S-1">
+      <action name="SendToDesktop" to="1" follow="no" />
     </keybind>
-    <keybind key="Super+Shift+2">
-      <action name="SendToDesktop" to="2" />
+    <keybind key="W-S-2">
+      <action name="SendToDesktop" to="2" follow="no" />
     </keybind>
-    <keybind key="Super+Shift+3">
-      <action name="SendToDesktop" to="3" />
+    <keybind key="W-S-3">
+      <action name="SendToDesktop" to="3" follow="no" />
     </keybind>
-    <keybind key="Super+Shift+4">
-      <action name="SendToDesktop" to="4" />
+    <keybind key="W-S-4">
+      <action name="SendToDesktop" to="4" follow="no" />
     </keybind>
-    
-    <!-- Laptop brightness controls (use brightnessctl if available) -->
-    <keybind key="XF86MonBrightnessUp">
-      <action name="Execute" command="brightnessctl set +5%" />
-    </keybind>
-    <keybind key="XF86MonBrightnessDown">
-      <action name="Execute" command="brightnessctl set 5%-" />
-    </keybind>
-    
-    <!-- Volume controls -->
+
+    <!-- Volume (PipeWire / WirePlumber) -->
     <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ +5%" />
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" />
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <action name="Execute" command="pactl set-sink-volume @DEFAULT_SINK@ -5%" />
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" />
     </keybind>
     <keybind key="XF86AudioMute">
-      <action name="Execute" command="pactl set-sink-mute @DEFAULT_SINK@ toggle" />
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" />
     </keybind>
     <keybind key="XF86AudioMicMute">
-      <action name="Execute" command="pactl set-source-mute @DEFAULT_SOURCE@ toggle" />
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" />
     </keybind>
-    
-    <!-- Media controls -->
+
+    <!-- Media keys -->
     <keybind key="XF86AudioPlay">
       <action name="Execute" command="playerctl play-pause" />
     </keybind>
@@ -235,132 +260,98 @@
     <keybind key="XF86AudioPrev">
       <action name="Execute" command="playerctl previous" />
     </keybind>
-    
-    <!-- Screenshots -->
+
+    <!-- Brightness (laptops) -->
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute" command="brightnessctl set 5%+" />
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute" command="brightnessctl set 5%-" />
+    </keybind>
+
+    <!--
+      Screenshots
+      Print       - full screen to ~/Pictures and to the clipboard
+      W-S-Print   - region to the clipboard
+      W-Print     - region, opened in satty for annotation
+    -->
     <keybind key="Print">
-      <action name="Execute" command="grim" />
+      <action name="Execute">
+        <command>sh -c 'mkdir -p ~/Pictures; f=~/Pictures/screenshot-$(date +%F_%H-%M-%S).png; grim "$f"; wl-copy &lt; "$f"'</command>
+      </action>
     </keybind>
-    <keybind key="Shift+Print">
-      <action name="Execute" command="grim -g \"$(slurp)\"" />
+    <keybind key="W-S-Print">
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" - | wl-copy'</command>
+      </action>
     </keybind>
-    <keybind key="Super+Print">
-      <action name="Execute" command="grim -g \"$(slurp)\" - | wl-copy" />
+    <keybind key="W-Print">
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" - | satty -f -'</command>
+      </action>
     </keybind>
-    
-    <!-- Lock screen -->
-    <keybind key="Super+Shift+l">
-      <action name="Execute" command="swaylock" />
+
+    <!-- Session -->
+    <keybind key="W-S-l">
+      <action name="Execute" command="swaylock -f" />
+    </keybind>
+    <keybind key="W-S-r">
+      <action name="Reconfigure" />
+    </keybind>
+    <keybind key="W-S-q">
+      <action name="If">
+        <prompt message="Exit labwc?" />
+        <then>
+          <action name="Exit" />
+        </then>
+      </action>
     </keybind>
   </keyboard>
 
-  <!-- Mouse configuration -->
+  <!-- Mouse: keep the labwc defaults (titlebar drag, Alt+drag, root menu) -->
   <mouse>
     <default />
     <doubleClickTime>400</doubleClickTime>
-    <dragThreshold>8</dragThreshold>
-    <context name="TitleBar">
-      <mousebind button="Left" action="Press">
-        <action name="Focus" />
-        <action name="Raise" />
-      </mousebind>
-      <mousebind button="Left" action="Drag">
-        <action name="Move" />
-      </mousebind>
-      <mousebind button="Right" action="Press">
-        <action name="Focus" />
-        <action name="Raise" />
-        <action name="ShowMenu">
-          <menu>client-menu</menu>
-        </action>
-      </mousebind>
-      <mousebind button="Middle" action="Press">
-        <action name="Focus" />
-        <action name="Raise" />
-        <action name="ShowMenu">
-          <menu>client-menu</menu>
-        </action>
-      </mousebind>
-      <mousebind button="Left" action="DoubleClick">
-        <action name="ToggleMaximize" />
-      </mousebind>
-    </context>
-    <context name="Root">
-      <mousebind button="Right" action="Press">
-        <action name="ShowMenu">
-          <menu>root-menu</menu>
-        </action>
-      </mousebind>
-      <mousebind button="Left" action="Press">
-        <action name="ShowMenu">
-          <menu>root-menu</menu>
-        </action>
-      </mousebind>
-      <mousebind button="Middle" action="Press">
-        <action name="ShowMenu">
-          <menu>root-menu</menu>
-        </action>
-      </mousebind>
-    </context>
   </mouse>
 
-  <!-- Touchpad configuration (laptop-friendly) -->
+  <!-- Workspaces -->
+  <desktops number="4">
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+    </names>
+  </desktops>
+
+  <!-- Input devices -->
   <libinput>
     <device category="touchpad">
       <naturalScroll>yes</naturalScroll>
       <tap>yes</tap>
-      <tapButtonMap>lrm</tapButtonMap>
       <tapAndDrag>yes</tapAndDrag>
       <dragLock>yes</dragLock>
       <middleEmulation>yes</middleEmulation>
       <accelProfile>adaptive</accelProfile>
-      <pointerSpeed>0.7</pointerSpeed>
       <disableWhileTyping>yes</disableWhileTyping>
     </device>
   </libinput>
 
-  <!-- Window rules -->
+  <!--
+    Window rules (glob patterns, case-insensitive)
+
+    Property form, e.g. force server-side decorations on an app:
+      <windowRule identifier="pavucontrol" serverDecoration="yes" />
+
+    Action form, e.g. keep dialogs above normal windows:
+      <windowRule type="dialog">
+        <action name="ToggleAlwaysOnTop" />
+      </windowRule>
+
+    Other useful properties: skipTaskbar, skipWindowSwitcher,
+    ignoreFocusRequest, ignoreConfigureRequest, fixedPosition.
+  -->
   <windowRules>
-    <!-- Floating windows -->
-    <windowRule identifier="rofi" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule identifier="fuzzel" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule identifier="pavucontrol" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule identifier="nm-connection-editor" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule identifier="blueman-manager" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule identifier="swaylock" matchOnce="yes">
-      <action name="Float" />
-      <action name="Focus" />
-    </windowRule>
-    
-    <!-- Dialog windows -->
-    <windowRule title="*Dialog*" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule title="*Confirm*" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
-    <windowRule title="*Popup*" matchOnce="yes">
-      <action name="Float" />
-    </windowRule>
   </windowRules>
 
-  <!-- Output configuration (laptop-friendly - can be adjusted per monitor) -->
-  <outputs>
-    <!-- Default fallback - will be auto-detected -->
-    <default>
-      <mode>preferred</mode>
-      <position>auto</position>
-      <scale>1.0</scale>
-      <transform>normal</transform>
-    </default>
-  </outputs>
 </labwc_config>

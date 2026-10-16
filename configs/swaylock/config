@@ -1,0 +1,32 @@
+# Ultimate Labwc Rice - swaylock screen locker
+# Catppuccin Mocha palette
+# Reference: man swaylock
+
+color=1e1e2e
+
+font=JetBrainsMono Nerd Font
+font-size=24
+
+indicator-radius=120
+indicator-thickness=8
+
+ring-color=cba6f7
+ring-ver-color=89b4fa
+ring-wrong-color=f38ba8
+ring-clear-color=a6e3a1
+
+inside-color=181825
+inside-ver-color=181825
+inside-wrong-color=181825
+inside-clear-color=181825
+
+text-color=cdd6f4
+text-ver-color=cdd6f4
+text-wrong-color=f38ba8
+text-clear-color=cdd6f4
+
+key-hl-color=a6e3a1
+bs-hl-color=f38ba8
+
+line-color=00000000
+separator-color=00000000
