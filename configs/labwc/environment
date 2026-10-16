@@ -24,7 +24,13 @@ _JAVA_AWT_WM_NONREPARENTING=1
 XCURSOR_THEME=Bibata-Modern-Ice
 XCURSOR_SIZE=24
 
-# Keyboard layout (uncomment and adjust to taste, e.g. a German layout)
-#XKB_DEFAULT_LAYOUT=de
-#XKB_DEFAULT_VARIANT=
+# Keyboard layout (German, matching the system-wide localectl setting)
+XKB_DEFAULT_LAYOUT=de
+XKB_DEFAULT_MODEL=pc105
+# Optional tweaks, uncomment as needed:
+#XKB_DEFAULT_VARIANT=nodeadkeys
+# Add a second layout and toggle it with Alt+Shift:
+#XKB_DEFAULT_LAYOUT=de,us
 #XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle
+# Or swap Caps Lock for Escape:
+#XKB_DEFAULT_OPTIONS=caps:escape
