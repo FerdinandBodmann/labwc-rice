@@ -122,7 +122,7 @@
       <action name="Execute" command="alacritty" />
     </keybind>
     <keybind key="W-e">
-      <action name="Execute" command="thunar" />
+      <action name="Execute" command="dolphin" />
     </keybind>
     <keybind key="W-w">
       <action name="Execute" command="firefox" />

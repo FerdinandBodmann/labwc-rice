@@ -12,7 +12,7 @@
       <action name="Execute" command="kitty" />
     </item>
     <item label="File Manager">
-      <action name="Execute" command="thunar" />
+      <action name="Execute" command="dolphin" />
     </item>
     <item label="Web Browser">
       <action name="Execute" command="firefox" />
