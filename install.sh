@@ -66,6 +66,17 @@ if [ -f "${SCRIPT_DIR}/configs/waypaper/config.ini" ] && [ ! -f "${HOME}/.config
     echo "Seeded ~/.config/waypaper/config.ini"
 fi
 
+# Portal routing. The labwc package's default sends file dialogs to the GNOME
+# backend, which cannot start outside a GNOME session, so open/save dialogs in
+# Flatpak apps (browsers etc.) fail. Link a user-level override that prefers the
+# gtk backend. Only this single file is linked, so other portal config stays.
+if [ -f "${SCRIPT_DIR}/configs/xdg-desktop-portal/labwc-portals.conf" ]; then
+    mkdir -p "${HOME}/.config/xdg-desktop-portal"
+    ln -sfn "${SCRIPT_DIR}/configs/xdg-desktop-portal/labwc-portals.conf" \
+            "${HOME}/.config/xdg-desktop-portal/labwc-portals.conf"
+    echo "Linked ~/.config/xdg-desktop-portal/labwc-portals.conf"
+fi
+
 # Copy themes if they exist
 if [ -d "${SCRIPT_DIR}/themes" ] && [ -n "$(find "${SCRIPT_DIR}/themes" -mindepth 1 ! -name '.gitkeep' -print -quit)" ]; then
     mkdir -p "${HOME}/.local/share/themes"
