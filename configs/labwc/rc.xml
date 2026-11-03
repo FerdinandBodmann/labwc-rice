@@ -116,16 +116,16 @@
 
     <!-- Launchers -->
     <keybind key="W-Return">
-      <action name="Execute" command="kitty" />
+      <action name="Execute" command="ghostty" />
     </keybind>
     <keybind key="W-S-Return">
       <action name="Execute" command="alacritty" />
     </keybind>
     <keybind key="W-e">
-      <action name="Execute" command="dolphin" />
+      <action name="Execute" command="ski" />
     </keybind>
     <keybind key="W-w">
-      <action name="Execute" command="firefox" />
+      <action name="Execute" command="com.microsoft.Edge" />
     </keybind>
 
     <!-- Wallpaper: opens a thumbnail grid where you click the one you want -->
@@ -276,14 +276,12 @@
 
     <!--
       Screenshots
-      Print       - full screen to ~/Pictures and to the clipboard
+      Print       - flameshot (full screen, opens the editor)
       W-S-Print   - region to the clipboard
       W-Print     - region, opened in satty for annotation
     -->
     <keybind key="Print">
-      <action name="Execute">
-        <command>sh -c 'mkdir -p ~/Pictures; f=~/Pictures/screenshot-$(date +%F_%H-%M-%S).png; grim "$f"; wl-copy &lt; "$f"'</command>
-      </action>
+      <action name="Execute" command="flameshot gui" />
     </keybind>
     <keybind key="W-S-Print">
       <action name="Execute">
@@ -297,7 +295,7 @@
     </keybind>
 
     <!-- Session -->
-    <keybind key="W-S-l">
+    <keybind key="W-l">
       <action name="Execute" command="swaylock -f" />
     </keybind>
     <keybind key="W-S-r">
