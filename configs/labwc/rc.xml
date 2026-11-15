@@ -60,6 +60,28 @@
     <notifyClient>always</notifyClient>
   </snapping>
 
+  <!--
+    Tiling regions
+    Percentages of the output's usable area, referenced by the
+    (Toggle)SnapToRegion keybindings in the <keyboard> section below.
+  -->
+  <regions>
+    <!-- Halves -->
+    <region name="left"         x="0%"  y="0%"  width="50%"  height="100%" />
+    <region name="right"        x="50%" y="0%"  width="50%"  height="100%" />
+    <region name="top"          x="0%"  y="0%"  width="100%" height="50%" />
+    <region name="bottom"       x="0%"  y="50%" width="100%" height="50%" />
+    <!-- Quarters -->
+    <region name="top-left"     x="0%"  y="0%"  width="50%"  height="50%" />
+    <region name="top-right"    x="50%" y="0%"  width="50%"  height="50%" />
+    <region name="bottom-left"  x="0%"  y="50%" width="50%"  height="50%" />
+    <region name="bottom-right" x="50%" y="50%" width="50%"  height="50%" />
+    <!-- Full-height column thirds -->
+    <region name="left-third"   x="0%"  y="0%"  width="33%"  height="100%" />
+    <region name="center"       x="33%" y="0%"  width="34%"  height="100%" />
+    <region name="right-third"  x="67%" y="0%"  width="33%"  height="100%" />
+  </regions>
+
   <!-- Theme (see labwc-theme(5)) -->
   <theme>
     <!--
@@ -68,6 +90,12 @@
       <name>Catppuccin-Mocha-Compact</name>
     -->
     <cornerRadius>8</cornerRadius>
+    <!--
+      Windows are undecorated (see <windowRules> below). keepBorder=no makes
+      ToggleDecorations a plain on/off switch with no residual border.
+    -->
+    <keepBorder>no</keepBorder>
+    <maximizedDecoration>none</maximizedDecoration>
     <font place="ActiveWindow">
       <name>JetBrainsMono Nerd Font</name>
       <size>10</size>
@@ -159,32 +187,73 @@
       <action name="PreviousWindow" />
     </keybind>
 
-    <!-- Tile to half of the output -->
+    <!--
+      Tiling
+      Repeat the same binding to untile the window again.
+      Arrows tile to halves/quarters, the numpad tiles to a 3x3 grid.
+    -->
     <keybind key="W-Left">
-      <action name="SnapToEdge" direction="left" />
+      <action name="ToggleSnapToEdge" direction="left" />
     </keybind>
     <keybind key="W-Right">
-      <action name="SnapToEdge" direction="right" />
+      <action name="ToggleSnapToEdge" direction="right" />
     </keybind>
     <keybind key="W-Up">
-      <action name="SnapToEdge" direction="up" />
+      <action name="ToggleSnapToEdge" direction="up" />
     </keybind>
     <keybind key="W-Down">
-      <action name="SnapToEdge" direction="down" />
+      <action name="ToggleSnapToEdge" direction="down" />
     </keybind>
 
     <!-- Tile to a quarter of the output -->
     <keybind key="W-C-Up">
-      <action name="SnapToEdge" direction="up-left" />
+      <action name="ToggleSnapToEdge" direction="up-left" />
     </keybind>
     <keybind key="W-C-Right">
-      <action name="SnapToEdge" direction="up-right" />
+      <action name="ToggleSnapToEdge" direction="up-right" />
     </keybind>
     <keybind key="W-C-Down">
-      <action name="SnapToEdge" direction="down-right" />
+      <action name="ToggleSnapToEdge" direction="down-right" />
     </keybind>
     <keybind key="W-C-Left">
-      <action name="SnapToEdge" direction="down-left" />
+      <action name="ToggleSnapToEdge" direction="down-left" />
+    </keybind>
+
+    <!-- Numpad grid: 7-9 top row, 4-6 middle, 1-3 bottom -->
+    <keybind key="W-KP_7">
+      <action name="ToggleSnapToRegion" region="top-left" />
+    </keybind>
+    <keybind key="W-KP_8">
+      <action name="ToggleSnapToRegion" region="top" />
+    </keybind>
+    <keybind key="W-KP_9">
+      <action name="ToggleSnapToRegion" region="top-right" />
+    </keybind>
+    <keybind key="W-KP_4">
+      <action name="ToggleSnapToRegion" region="left" />
+    </keybind>
+    <keybind key="W-KP_5">
+      <action name="ToggleSnapToRegion" region="center" />
+    </keybind>
+    <keybind key="W-KP_6">
+      <action name="ToggleSnapToRegion" region="right" />
+    </keybind>
+    <keybind key="W-KP_1">
+      <action name="ToggleSnapToRegion" region="bottom-left" />
+    </keybind>
+    <keybind key="W-KP_2">
+      <action name="ToggleSnapToRegion" region="bottom" />
+    </keybind>
+    <keybind key="W-KP_3">
+      <action name="ToggleSnapToRegion" region="bottom-right" />
+    </keybind>
+
+    <!-- Full-height column thirds -->
+    <keybind key="W-C-KP_4">
+      <action name="ToggleSnapToRegion" region="left-third" />
+    </keybind>
+    <keybind key="W-C-KP_6">
+      <action name="ToggleSnapToRegion" region="right-third" />
     </keybind>
 
     <!-- Move window until it hits the next edge -->
@@ -228,6 +297,18 @@
     <keybind key="W-4">
       <action name="GoToDesktop" to="4" />
     </keybind>
+    <keybind key="W-5">
+      <action name="GoToDesktop" to="5" />
+    </keybind>
+    <keybind key="W-6">
+      <action name="GoToDesktop" to="6" />
+    </keybind>
+    <keybind key="W-7">
+      <action name="GoToDesktop" to="7" />
+    </keybind>
+    <keybind key="W-8">
+      <action name="GoToDesktop" to="8" />
+    </keybind>
     <keybind key="W-S-1">
       <action name="SendToDesktop" to="1" follow="no" />
     </keybind>
@@ -239,6 +320,18 @@
     </keybind>
     <keybind key="W-S-4">
       <action name="SendToDesktop" to="4" follow="no" />
+    </keybind>
+    <keybind key="W-S-5">
+      <action name="SendToDesktop" to="5" follow="no" />
+    </keybind>
+    <keybind key="W-S-6">
+      <action name="SendToDesktop" to="6" follow="no" />
+    </keybind>
+    <keybind key="W-S-7">
+      <action name="SendToDesktop" to="7" follow="no" />
+    </keybind>
+    <keybind key="W-S-8">
+      <action name="SendToDesktop" to="8" follow="no" />
     </keybind>
 
     <!-- Volume (PipeWire / WirePlumber) -->
@@ -311,19 +404,36 @@
     </keybind>
   </keyboard>
 
-  <!-- Mouse: keep the labwc defaults (titlebar drag, Alt+drag, root menu) -->
+  <!--
+    Mouse: keep the labwc defaults, plus grab-to-move/resize on the client
+    area. Decorations are disabled below, so there is no titlebar or border
+    to drag; hold Super and drag with left/right button instead.
+  -->
   <mouse>
     <default />
     <doubleClickTime>400</doubleClickTime>
+
+    <context name="Client">
+      <mousebind button="W-Left" action="Drag">
+        <action name="Move" />
+      </mousebind>
+      <mousebind button="W-Right" action="Drag">
+        <action name="Resize" />
+      </mousebind>
+    </context>
   </mouse>
 
   <!-- Workspaces -->
-  <desktops number="4">
+  <desktops number="8">
     <names>
       <name>1</name>
       <name>2</name>
       <name>3</name>
       <name>4</name>
+      <name>5</name>
+      <name>6</name>
+      <name>7</name>
+      <name>8</name>
     </names>
   </desktops>
 
@@ -355,6 +465,15 @@
     ignoreFocusRequest, ignoreConfigureRequest, fixedPosition.
   -->
   <windowRules>
+    <!--
+      No window decorations at all: no titlebar, buttons or border.
+      labwc keeps advertising server-side decorations to clients, so apps do
+      not fall back to drawing their own client-side titlebars.
+      W-v toggles decorations on/off for the focused window.
+    -->
+    <windowRule identifier="*">
+      <action name="SetDecorations" decorations="none" />
+    </windowRule>
   </windowRules>
 
 </labwc_config>

@@ -30,6 +30,7 @@ window#waybar {
 #clock,
 #idle_inhibitor,
 #pulseaudio,
+#bluetooth,
 #network,
 #cpu,
 #memory,
@@ -110,6 +111,24 @@ window#waybar {
 
 #pulseaudio.muted {
     color: #6c7086;
+}
+
+#bluetooth {
+    color: #89b4fa;
+}
+
+#bluetooth.off,
+#bluetooth.disabled,
+#bluetooth.no-controller {
+    color: #6c7086;
+}
+
+#bluetooth.discovering {
+    color: #cba6f7;
+}
+
+#bluetooth.connected {
+    color: #a6e3a1;
 }
 
 #network {

@@ -16,6 +16,7 @@
     "modules-right": [
         "idle_inhibitor",
         "pulseaudio",
+        "bluetooth",
         "network",
         "cpu",
         "memory",
@@ -62,6 +63,27 @@
         },
         "on-click": "pavucontrol",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-on": "{icon}",
+        "format-off": "{icon}",
+        "format-connected": "{icon} {num_connections}",
+        "format-no-controller": "{icon}",
+        "format-icons": {
+            "default": "",
+            "on": "",
+            "off": "",
+            "connected": ""
+        },
+        "tooltip-format": "{controller_alias}  {controller_address}",
+        "tooltip-format-on": "{controller_alias}  {controller_address}\nBluetooth on — click to manage devices",
+        "tooltip-format-off": "Bluetooth off — click to manage devices",
+        "tooltip-format-connected": "{controller_alias}  {controller_address}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "  {device_alias}  {device_address}",
+        "tooltip-format-no-controller": "No Bluetooth adapter",
+        "on-click": "/home/imgsh/.local/bin/bluetooth-panel",
+        "on-click-right": "bluetoothctl power toggle"
     },
     "network": {
         "format-wifi": " {essid}",

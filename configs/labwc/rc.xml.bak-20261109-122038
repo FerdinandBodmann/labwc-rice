@@ -1,0 +1,388 @@
+<?xml version="1.0"?>
+<!--
+  Ultimate Labwc Rice - rc.xml
+  Main configuration for labwc (Wayland window manager)
+
+  Reference: https://labwc.github.io/labwc-config.5.html
+
+  NOTE ON BINDINGS
+  labwc identifies the Super/Windows key as "W" (alias Mod4) and Alt as "A".
+  Openbox-style names such as "Super+Return" are NOT valid here - use "W-Return".
+  Valid modifier letters: S=Shift, C=Ctrl, A=Alt, W=Super, H=Hyper, M=Meta.
+
+  Commands that use shell syntax (pipes, $(...), redirection) MUST be wrapped
+  in `sh -c '...'`, because labwc splits the command itself and calls execvp()
+  without a shell.
+-->
+<labwc_config>
+
+  <!-- Core compositor settings -->
+  <core>
+    <decoration>server</decoration>
+    <!-- Gap (px) between snapped windows and output edges -->
+    <gap>8</gap>
+    <!-- Adaptive sync (VRR): no | yes | fullscreen -->
+    <adaptiveSync>fullscreen</adaptiveSync>
+  </core>
+
+  <!-- Window focus -->
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>yes</raiseOnFocus>
+  </focus>
+
+  <!-- Placement of new windows: center | automatic | cursor | cascade -->
+  <placement>
+    <policy>automatic</policy>
+  </placement>
+
+  <!-- Resize behaviour -->
+  <resize>
+    <drawContents>yes</drawContents>
+    <!-- Never | Always | Nonpixel -->
+    <popupShow>Always</popupShow>
+  </resize>
+
+  <!-- Resist / snap interactive moves across screen and window edges -->
+  <resistance>
+    <screenEdgeStrength>20</screenEdgeStrength>
+    <windowEdgeStrength>20</windowEdgeStrength>
+  </resistance>
+
+  <!-- Snapping: drag to an edge or use the SnapToEdge bindings below -->
+  <snapping>
+    <range>
+      <inner>10</inner>
+      <outer>10</outer>
+    </range>
+    <cornerRange>50</cornerRange>
+    <topMaximize>yes</topMaximize>
+    <notifyClient>always</notifyClient>
+  </snapping>
+
+  <!-- Theme (see labwc-theme(5)) -->
+  <theme>
+    <!--
+      No Openbox theme is installed on this system by default. To use one,
+      install a theme (e.g. an AUR labwc/openbox theme) and uncomment:
+      <name>Catppuccin-Mocha-Compact</name>
+    -->
+    <cornerRadius>8</cornerRadius>
+    <font place="ActiveWindow">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="InactiveWindow">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="MenuHeader">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>bold</weight>
+    </font>
+    <font place="MenuItem">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>JetBrainsMono Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <titlebar>
+      <layout>menu:iconify,max,close</layout>
+      <showTitle>yes</showTitle>
+    </titlebar>
+  </theme>
+
+  <!-- Key bindings -->
+  <keyboard>
+    <repeatRate>25</repeatRate>
+    <repeatDelay>600</repeatDelay>
+
+    <!-- Menus -->
+    <keybind key="W-Space">
+      <action name="Execute" command="fuzzel" />
+    </keybind>
+
+    <!-- Launchers -->
+    <keybind key="W-Return">
+      <action name="Execute" command="ghostty" />
+    </keybind>
+    <keybind key="W-S-Return">
+      <action name="Execute" command="alacritty" />
+    </keybind>
+    <keybind key="W-e">
+      <action name="Execute" command="ski" />
+    </keybind>
+    <keybind key="W-w">
+      <action name="Execute" command="com.microsoft.Edge" />
+    </keybind>
+
+    <!-- Wallpaper: opens a thumbnail grid where you click the one you want -->
+    <keybind key="W-S-w">
+      <action name="Execute" command="waypaper" />
+    </keybind>
+
+    <!-- Window management -->
+    <keybind key="W-q">
+      <action name="Close" />
+    </keybind>
+    <keybind key="W-m">
+      <action name="Iconify" />
+    </keybind>
+    <keybind key="W-f">
+      <action name="ToggleMaximize" />
+    </keybind>
+    <keybind key="W-S-f">
+      <action name="ToggleFullscreen" />
+    </keybind>
+    <keybind key="W-v">
+      <action name="ToggleDecorations" />
+    </keybind>
+    <keybind key="W-d">
+      <action name="ToggleShowDesktop" />
+    </keybind>
+    <keybind key="W-Tab">
+      <action name="NextWindow" />
+    </keybind>
+    <keybind key="W-S-Tab">
+      <action name="PreviousWindow" />
+    </keybind>
+
+    <!-- Tile to half of the output -->
+    <keybind key="W-Left">
+      <action name="SnapToEdge" direction="left" />
+    </keybind>
+    <keybind key="W-Right">
+      <action name="SnapToEdge" direction="right" />
+    </keybind>
+    <keybind key="W-Up">
+      <action name="SnapToEdge" direction="up" />
+    </keybind>
+    <keybind key="W-Down">
+      <action name="SnapToEdge" direction="down" />
+    </keybind>
+
+    <!-- Tile to a quarter of the output -->
+    <keybind key="W-C-Up">
+      <action name="SnapToEdge" direction="up-left" />
+    </keybind>
+    <keybind key="W-C-Right">
+      <action name="SnapToEdge" direction="up-right" />
+    </keybind>
+    <keybind key="W-C-Down">
+      <action name="SnapToEdge" direction="down-right" />
+    </keybind>
+    <keybind key="W-C-Left">
+      <action name="SnapToEdge" direction="down-left" />
+    </keybind>
+
+    <!-- Move window until it hits the next edge -->
+    <keybind key="W-S-Left">
+      <action name="MoveToEdge" direction="left" />
+    </keybind>
+    <keybind key="W-S-Right">
+      <action name="MoveToEdge" direction="right" />
+    </keybind>
+    <keybind key="W-S-Up">
+      <action name="MoveToEdge" direction="up" />
+    </keybind>
+    <keybind key="W-S-Down">
+      <action name="MoveToEdge" direction="down" />
+    </keybind>
+
+    <!-- Resize by 10% -->
+    <keybind key="W-C-S-Left">
+      <action name="ResizeRelative" left="10%" right="-10%" />
+    </keybind>
+    <keybind key="W-C-S-Right">
+      <action name="ResizeRelative" left="-10%" right="10%" />
+    </keybind>
+    <keybind key="W-C-S-Up">
+      <action name="ResizeRelative" top="10%" bottom="-10%" />
+    </keybind>
+    <keybind key="W-C-S-Down">
+      <action name="ResizeRelative" top="-10%" bottom="10%" />
+    </keybind>
+
+    <!-- Workspaces -->
+    <keybind key="W-1">
+      <action name="GoToDesktop" to="1" />
+    </keybind>
+    <keybind key="W-2">
+      <action name="GoToDesktop" to="2" />
+    </keybind>
+    <keybind key="W-3">
+      <action name="GoToDesktop" to="3" />
+    </keybind>
+    <keybind key="W-4">
+      <action name="GoToDesktop" to="4" />
+    </keybind>
+    <keybind key="W-5">
+      <action name="GoToDesktop" to="5" />
+    </keybind>
+    <keybind key="W-6">
+      <action name="GoToDesktop" to="6" />
+    </keybind>
+    <keybind key="W-7">
+      <action name="GoToDesktop" to="7" />
+    </keybind>
+    <keybind key="W-8">
+      <action name="GoToDesktop" to="8" />
+    </keybind>
+    <keybind key="W-S-1">
+      <action name="SendToDesktop" to="1" follow="no" />
+    </keybind>
+    <keybind key="W-S-2">
+      <action name="SendToDesktop" to="2" follow="no" />
+    </keybind>
+    <keybind key="W-S-3">
+      <action name="SendToDesktop" to="3" follow="no" />
+    </keybind>
+    <keybind key="W-S-4">
+      <action name="SendToDesktop" to="4" follow="no" />
+    </keybind>
+    <keybind key="W-S-5">
+      <action name="SendToDesktop" to="5" follow="no" />
+    </keybind>
+    <keybind key="W-S-6">
+      <action name="SendToDesktop" to="6" follow="no" />
+    </keybind>
+    <keybind key="W-S-7">
+      <action name="SendToDesktop" to="7" follow="no" />
+    </keybind>
+    <keybind key="W-S-8">
+      <action name="SendToDesktop" to="8" follow="no" />
+    </keybind>
+
+    <!-- Volume (PipeWire / WirePlumber) -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" />
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" />
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" />
+    </keybind>
+    <keybind key="XF86AudioMicMute">
+      <action name="Execute" command="wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" />
+    </keybind>
+
+    <!-- Media keys -->
+    <keybind key="XF86AudioPlay">
+      <action name="Execute" command="playerctl play-pause" />
+    </keybind>
+    <keybind key="XF86AudioNext">
+      <action name="Execute" command="playerctl next" />
+    </keybind>
+    <keybind key="XF86AudioPrev">
+      <action name="Execute" command="playerctl previous" />
+    </keybind>
+
+    <!-- Brightness (laptops) -->
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute" command="brightnessctl set 5%+" />
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute" command="brightnessctl set 5%-" />
+    </keybind>
+
+    <!--
+      Screenshots
+      Print       - flameshot (full screen, opens the editor)
+      W-S-Print   - region to the clipboard
+      W-Print     - region, opened in satty for annotation
+    -->
+    <keybind key="Print">
+      <action name="Execute" command="flameshot gui" />
+    </keybind>
+    <keybind key="W-S-Print">
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" - | wl-copy'</command>
+      </action>
+    </keybind>
+    <keybind key="W-Print">
+      <action name="Execute">
+        <command>sh -c 'grim -g "$(slurp)" - | satty -f -'</command>
+      </action>
+    </keybind>
+
+    <!-- Session -->
+    <keybind key="W-l">
+      <action name="Execute" command="swaylock -f" />
+    </keybind>
+    <keybind key="W-S-r">
+      <action name="Reconfigure" />
+    </keybind>
+    <keybind key="W-S-q">
+      <action name="If">
+        <prompt message="Exit labwc?" />
+        <then>
+          <action name="Exit" />
+        </then>
+      </action>
+    </keybind>
+  </keyboard>
+
+  <!-- Mouse: keep the labwc defaults (titlebar drag, Alt+drag, root menu) -->
+  <mouse>
+    <default />
+    <doubleClickTime>400</doubleClickTime>
+  </mouse>
+
+  <!-- Workspaces -->
+  <desktops number="8">
+    <names>
+      <name>1</name>
+      <name>2</name>
+      <name>3</name>
+      <name>4</name>
+      <name>5</name>
+      <name>6</name>
+      <name>7</name>
+      <name>8</name>
+    </names>
+  </desktops>
+
+  <!-- Input devices -->
+  <libinput>
+    <device category="touchpad">
+      <naturalScroll>yes</naturalScroll>
+      <tap>yes</tap>
+      <tapAndDrag>yes</tapAndDrag>
+      <dragLock>yes</dragLock>
+      <middleEmulation>yes</middleEmulation>
+      <accelProfile>adaptive</accelProfile>
+      <disableWhileTyping>yes</disableWhileTyping>
+    </device>
+  </libinput>
+
+  <!--
+    Window rules (glob patterns, case-insensitive)
+
+    Property form, e.g. force server-side decorations on an app:
+      <windowRule identifier="pavucontrol" serverDecoration="yes" />
+
+    Action form, e.g. keep dialogs above normal windows:
+      <windowRule type="dialog">
+        <action name="ToggleAlwaysOnTop" />
+      </windowRule>
+
+    Other useful properties: skipTaskbar, skipWindowSwitcher,
+    ignoreFocusRequest, ignoreConfigureRequest, fixedPosition.
+  -->
+  <windowRules>
+  </windowRules>
+
+</labwc_config>
